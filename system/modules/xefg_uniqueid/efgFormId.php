@@ -15,7 +15,7 @@ class efgFormId extends Backend
 					->limit(1)
 					->execute($id);
 		
-		$arrSubmitted['formId'] = $arrSubmitted['formId'].str_pad($f->uniqueid,5,'0',STR_PAD_LEFT);
+		$arrSubmitted['uniqueid'] = $arrSubmitted['uniqueid'].str_pad($f->uniqueid,5,'0',STR_PAD_LEFT);
 		
 		return $arrSubmitted;
 	}
