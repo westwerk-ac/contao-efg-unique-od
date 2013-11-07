@@ -4,18 +4,19 @@ class efgFormId extends Backend
 {
 	public function createFormId($arrSubmitted, $arrFiles, $intOldRecordId, $arrFormConfig) 
 	{
-		$id = substr($arrSubmitted['FORM_SUBMIT'],10);
 		
+		$id = substr($arrSubmitted['FORM_SUBMIT'],5);		
+				
 		$this->Database
-				->prepare("UPDATE tl_form SET uniqueid = uniqueid + 1 WHERE id = ?")
+				->prepare("UPDATE tl_form SET uniqueid = uniqueid + 1 WHERE formId = ?")
 				->execute($id);
-		
+										
 		$f = $this->Database
-					->prepare("SELECT uniqueid FROM tl_form WHERE id = ?")
+					->prepare("SELECT uniqueid FROM tl_form WHERE formId = ?")
 					->limit(1)
 					->execute($id);
 		
-		$arrSubmitted['uniqueid'] = $arrSubmitted['uniqueid'].str_pad($f->uniqueid,5,'0',STR_PAD_LEFT);
+		$arrSubmitted['uniqueid'] = $arrSubmitted['uniqueid'].str_pad($f->uniqueid,1,'0',STR_PAD_LEFT);	
 		
 		return $arrSubmitted;
 	}
